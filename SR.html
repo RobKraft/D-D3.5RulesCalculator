@@ -25,56 +25,80 @@ div.lose { background-color:red;}
 
   </style>
 <script>
+function getElement(id) {
+ return document.getElementById(id);
+}
+function getValueAsInt(id) {
+  var val = parseInt(getElement(id).innerHTML);
+  if (val == NaN)
+    return 0;
+  else
+    return val;
+}
+function getValueFromValue(id) {
+  if (getElement(id).value == NaN)
+    return 0;
+  var val = parseInt(getElement(id).value);
+  if (isNaN(val))
+    return 0;
+  else
+    return val;
+}
+function setValueHTML(id, value) {
+  getElement(id).innerHTML = value;
+}
 function init() {
-  document.getElementById("cl").value=6;
+  getElement("cl").value=6;
+  getValueFromValue("cl");
   globalTotal=6;
   calcTotal();
 }
 function calcTotal() {
-  globalTotal = parseInt(document.getElementById("cl").value) +
-  parseInt(document.getElementById("sp").innerHTML) +
-  parseInt(document.getElementById("gsp").innerHTML) +
-  parseInt(document.getElementById("asyv").innerHTML) +
-  parseInt(document.getElementById("chance").value);
-  document.getElementById("total").innerHTML=globalTotal;
-  document.getElementById("total").classList.remove('win');
-  document.getElementById("total").classList.remove('lose');
-  if (globalTotal >= 25)
+  globalTotal = getValueFromValue("cl") +
+  getValueAsInt("sp") +
+  getValueAsInt("gsp") +
+  getValueAsInt("asyv") +
+  getValueFromValue("bonus") +
+  getValueFromValue("chance");
+  setValueHTML("total",globalTotal);
+  getElement("total").classList.remove('win');
+  getElement("total").classList.remove('lose');
+  if (globalTotal >= getValueFromValue("enemy"))
   {
-    document.getElementById("total").classList.add('win');
+    getElement("total").classList.add('win');
   }
   else
   {
-    document.getElementById("total").classList.add('lose');
+    getElement("total").classList.add('lose');
   }
 }
 function spchecked() {
-  if (document.getElementById("spc").checked==true)
+  if (getElement("spc").checked==true)
   {
-    document.getElementById("sp").innerHTML=2;
-    document.getElementById("gspc").disabled=false;
+    setValueHTML("sp",2);
+    getElement("gspc").disabled=false;
   }
   else
   {
-    document.getElementById("sp").innerHTML=0;
-    document.getElementById("gspc").disabled=true;
-    document.getElementById("gspc").checked=false;
-    document.getElementById("gsp").innerHTML=0;
+    setValueHTML("sp",0);
+    getElement("gspc").disabled=true;
+    getElement("gspc").checked=false;
+    setValueHTML("gsp",0);
   }
   calcTotal();
 }
 function gspchecked() {
-  if (document.getElementById("gspc").checked==true)
-    document.getElementById("gsp").innerHTML=2;
+  if (getElement("gspc").checked==true)
+    setValueHTML("gsp",2);
   else
-    document.getElementById("gsp").innerHTML=0;
+    setValueHTML("gsp",0);
     calcTotal();
 }
 function asychecked() {
-  if (document.getElementById("asy").checked==true)
-    document.getElementById("asyv").innerHTML=10;
+  if (getElement("asy").checked==true)
+    setValueHTML("asyv",10);
   else
-    document.getElementById("asyv").innerHTML=0;
+    setValueHTML("asyv",0);
     calcTotal();
 }
 window.onload = init;
@@ -90,7 +114,7 @@ window.onload = init;
           <div class=" col-sm-1">
           <h4>Spell Caster</h4>
           <p>Effective Caster Level:</p>
-          <input id="cl" size="3"></input>
+          <input id="cl" size="3" onkeyup="calcTotal()"></input>
           </div>
           <div class="col-sm-1">
           <h4>Caster Feat</h4>
@@ -119,13 +143,13 @@ window.onload = init;
           <div class="col-sm-1">
           <h4>Misc. Mod</h4>
           <p>Enter Other Bonuses</p>
-          <input id="bonus" size="3" value="0"></input>
+          <input id="bonus" size="3" value="0" onkeyup="calcTotal()"></input>
           </div>
 
           <div class="col-sm-1">
           <h4>Random Value</h4>
           <p>Roll d20 and enter value:</p>
-          <input id="chance" size="3" value="12"></input>
+          <input id="chance" size="3" value="12" onkeyup="calcTotal()"></input>
           </div>
           <div class="col-sm-1 img-responsive">
             <img src="PZO1118-Monk.jpg" alt="monk" height="150" >
@@ -135,7 +159,7 @@ window.onload = init;
           <div class="col-sm-1">
           <h4>The Enemy</h4>
           <p>15th Level Monk</p>
-          <p>SR 25</p>
+          SR<input id="enemy" size="3" value="25" onkeyup="calcTotal()"></input>
           </div>
 
           <div class="col-sm-1">
