@@ -22,6 +22,7 @@
 }
 div.win { background-color: green;}
 div.lose { background-color:red;}
+
   </style>
 <script>
 function init() {
@@ -83,48 +84,66 @@ window.onload = init;
     <form class="form-horizontal">
     <div class="container-fluid">
       <div class="row">
-          <div class="col-sm-1">
-    <img src="casting-lightening.gif" alt="Lightning" height="160" width="160">
+          <div class="col-sm-1 img-responsive">
+            <img src="casting-lightening.gif" alt="Lightning" >
           </div>
-          <div class="col-sm-1">
+          <div class=" col-sm-1">
           <h4>Spell Caster</h4>
           <p>Effective Caster Level:</p>
           <input id="cl" size="3"></input>
           </div>
           <div class="col-sm-1">
-          <h4>Feat</h4>
-          <p>Spell Penetration</p>
-          <input id="spc" type="checkbox" class="bottom-align-text" size="3" onchange="spchecked()"></input>
-          <div id="sp">0</div>
+          <h4>Caster Feat</h4>
+          <p>Spell Penetration Feat</p>
+          <div class="checkbox"><label>
+          <input id="spc" type="checkbox" onchange="spchecked()"><div id="sp">0</div></input>
+          </label></div>
           </div>
+
           <div class="col-sm-1">
-          <h4>Feat</h4>
+          <h4>Caster Feat</h4>
           <p>Greater Spell Penetration</p>
-          <input id="gspc" type="checkbox" class="bottom-align-text" size="3" onchange="gspchecked()" disabled=true></input>
-          <div id="gsp">0</div>
+          <div class="checkbox"><label>
+          <input id="gspc" type="checkbox" onchange="gspchecked()" disabled=true><div id="gsp">0</div></input>
+          </label></div>
           </div>
+
           <div class="col-sm-1">
-          <h4>Spell</h4>
-          <p>Did Caster cast Assay Spell Resistance?</p>
-          <input id="asy" type="checkbox" class="bottom-align-text" size="3" onchange="asychecked()"></input>
-          <div id="asyv">0</div>
+          <h4>Spell Caster</h4>
+          <p>Assay Spell Resistance?</p>
+          <div class="checkbox"><label>
+          <input id="asy" type="checkbox" onchange="asychecked()"><div id="asyv">0</div></input>
+          </label></div>     
           </div>
+
           <div class="col-sm-1">
-          <h4>Chance</h4>
+          <h4>Misc. Mod</h4>
+          <p>Enter Other Bonuses</p>
+          <input id="bonus" size="3" value="0"></input>
+          </div>
+
+          <div class="col-sm-1">
+          <h4>Random Value</h4>
           <p>Roll d20 and enter value:</p>
           <input id="chance" size="3" value="12"></input>
           </div>
-          <div class="col-sm-1">
-          <img src="PZO1118-Monk.jpg" alt="monk" height="150" width="150">
+          <div class="col-sm-1 img-responsive">
+            <img src="PZO1118-Monk.jpg" alt="monk" height="150" >
           </div>
+
+        
           <div class="col-sm-1">
-          <h4>Enemy</h4>
+          <h4>The Enemy</h4>
           <p>15th Level Monk</p>
           <p>SR 25</p>
           </div>
+
           <div class="col-sm-1">
+          <h4>Your Total</h4>
+          <p>Must Beat orEqual</p>
           <div id="total"></div>
           </div>
+
         </div>
       </div>
 </form>
