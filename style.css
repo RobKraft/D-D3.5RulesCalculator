@@ -1,0 +1,30 @@
+.wrapper{
+    width: 100%;
+    max-width: 960px;
+    margin:0 auto;
+}
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.box{
+    max-height: 200px;
+    background: greenyellow;
+    border-style: solid;
+    border-width: 1px;
+    flex-basis: 80px;
+    flex-flow: row wrap;
+    flex-direction: column;
+    
+}
+.value { 
+    height:20px;
+}
+
+.checkbox { 
+    margin-top: auto;
+}
+p  {color: blue; 
+ text-align: center; 
+ flex-flow: column;}
+h4 {text-align: center; height:40px;}
