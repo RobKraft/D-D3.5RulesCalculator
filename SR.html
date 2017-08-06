@@ -57,7 +57,7 @@
       calcdcTotal();
       getElement("dmlvl").value = 13;
       getElement("dmlvl2").value = 9;
-      getElement("btnDM").click();
+      getElement("btnSR").click();
       calcdmTotal();
     }
     function calcTotal() {
@@ -70,11 +70,19 @@
       setValueHTML("total", globalTotal);
       getElement("total").classList.remove('win');
       getElement("total").classList.remove('lose');
+      getElement("srpiccaster").classList.remove('lose');
+      getElement("srpiccaster").classList.remove('win');
+      getElement("srpicenemy").classList.remove('lose');
+      getElement("srpicenemy").classList.remove('win');
       if (globalTotal >= getValueFromValue("enemy")) {
         getElement("total").classList.add('win');
+        getElement("srpicenemy").classList.add('lose');
+        getElement("srpiccaster").classList.add('win');
       }
       else {
         getElement("total").classList.add('lose');
+        getElement("srpicenemy").classList.add('win');
+        getElement("srpiccaster").classList.add('lose');
       }
     }
     function spchecked() {
@@ -176,7 +184,7 @@
       getElement("dmpicenemy").classList.remove('win');
       getElement("dmpiccaster").classList.remove('lose');
       getElement("dmpiccaster").classList.remove('win');
-      if (dmTotal > getValueAsInt("dmtotal2")) {
+      if (dmTotal >= getValueAsInt("dmtotal2")) {
         getElement("dmtotal").classList.add('win');
         getElement("dmpicenemy").classList.add('lose');
         getElement("dmpiccaster").classList.add('win');
@@ -220,7 +228,7 @@
   </div>
   <div id="tabSR" class="wrapper tabcontent">
     <div class="flex-container">
-      <div class="box">
+      <div  id="srpiccaster" class="box">
         <img src="casting-lightening.gif" alt="Lightning" width=140px>
       </div>
       <div class="box">
@@ -269,7 +277,7 @@
         <p class="r2">A Red Dragon With SR:</p>
         <input id="enemy" size="3" value="25" class="r3t" onkeyup="calcTotal()"></input>
       </div>
-      <div class="box">
+      <div id="srpicenemy" class="box">
         <img src="dragon-animated-gif-62.gif" alt="enemy" width=155px >
       </div>
     </div>
@@ -368,7 +376,7 @@
       </div>
       <div class="box">
         <h4 class="r1">Enemy Total</h4>
-        <p class="r2">Enemy Must Beat Your DC</p>
+        <p class="r2">Value to Equal or Beat</p>
         <div id="dmtotal2" class="value r3v"></div>
       </div>
       <div id="dmpicenemy" class="box">
