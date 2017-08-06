@@ -1,0 +1,1 @@
+This is a test.  Git is a mess when you combine using Githubs copy/paste with the Windows Git shell and the Windows Git Gui and the intergrated SRC with VS code.
