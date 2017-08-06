@@ -52,6 +52,10 @@
       getValueFromValue("cl");
       globalTotal = 6;
       calcTotal();
+      getElement("dcbase").value = 10;
+      getElement("dclvl").value = 6;
+      calcdcTotal();
+      getElement("btnSV").click();
     }
     function calcTotal() {
       globalTotal = getValueFromValue("cl") +
@@ -97,17 +101,84 @@
         setValueHTML("asyv", 0);
       calcTotal();
     }
+
+    function dcfsfchecked() {
+      if (getElement("dcfsfc").checked == true) {
+        setValueHTML("dcfsf", 1);
+        getElement("dcfgsfc").disabled = false;
+      }
+      else {
+        setValueHTML("dcfsf", 0);
+        getElement("dcfgsfc").disabled = true;
+        getElement("dcfgsfc").checked = false;
+        setValueHTML("dcfgsf", 0);
+      }
+      calcdcTotal();
+    }
+    function dcfgsfchecked() {
+      if (getElement("dcfgsfc").checked == true)
+        setValueHTML("dcfgsf", 1);
+      else
+        setValueHTML("dcfgsf", 0);
+      calcdcTotal();
+    }
+    function calcdcTotal() {
+      dcTotal = 10 +
+        getValueFromValue("dclvl") +
+        getValueAsInt("dcfsf") +
+        getValueAsInt("dcfgsf") +
+        getValueFromValue("dcmod");
+      setValueHTML("dctotal", dcTotal);
+      getElement("dctotal").classList.remove('win');
+      getElement("dctotal").classList.remove('lose');
+      getElement("dcpicenemy").classList.remove('lose');
+      getElement("dcpicenemy").classList.remove('win');
+      getElement("dcpiccaster").classList.remove('lose');
+      getElement("dcpiccaster").classList.remove('win');
+      if (dcTotal > getValueFromValue("dcenemy")) {
+        getElement("dctotal").classList.add('win');
+        getElement("dcpicenemy").classList.add('lose');
+        getElement("dcpiccaster").classList.add('win');
+      }
+      else {
+        getElement("dctotal").classList.add('lose');
+        getElement("dcpicenemy").classList.add('win');
+        getElement("dcpiccaster").classList.add('lose');
+      }
+    }
+    
     window.onload = init;
   </script>
+  <script>
+  function openTab(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";}
+    </script>
 </HEAD>
 
 <BODY>
   <div class="tab">
-    <button class="tablinks" onclick="openTab(action, 'SR')">Spell Resistance</button>
-    <button class="tablinks" onclick="openTab(action, 'SV')">Saving Throw</button>
-    <button class="tablinks" onclick="openTab(action, 'DM')">Dispel Magic</button>
+    <button id="btnSR" class="tablinks" onclick="openTab(event, 'tabSR')">Spell Resistance</button>
+    <button id="btnSV" class="tablinks" onclick="openTab(event, 'tabSV')">Saving Throw</button>
+    <button class="tablinks" onclick="openTab(event, 'tabDM')">Dispel Magic</button>
   </div>
-  <div class="wrapper">
+  <div id="tabSR" class="wrapper tabcontent">
     <div class="flex-container">
       <div class="box">
         <img src="casting-lightening.gif" alt="Lightning" width=140px>
@@ -162,7 +233,58 @@
         <img src="dragon-animated-gif-62.gif" alt="enemy" width=155px >
       </div>
     </div>
-    </form>
+  </div>
+  <div id="tabSV" class="wrapper tabcontent">
+    <div class="flex-container">
+      <div id="dcpiccaster" class="box">
+        <img src="casting-lightening.gif" alt="caster" width=140px>
+      </div>
+      <div class="box">
+        <h4 class="r1">Base Difficulty Class</h4>
+        <p class="r2">The Base Difficulty Class is 10</p>
+        <div class="r3v" id="dcbase">10</div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Spell Level</h4>
+        <p class="r2">Spell Level for Your Class</p>
+        <input id="dclvl" size="4" class="r3t" onkeyup="calcdcTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Feat</h4>
+        <p class="r2">Spell Focus Feat</p>
+        <div class="r3"><label>
+          <input id="dcfsfc" type="checkbox" class="r3c" onchange="dcfsfchecked()"><div class="r3v" id="dcfsf">0</div></input>
+          </label></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Feat</h4>
+        <p class="r2">Greater Spell Focus</p>
+        <div class="r3"><label>
+          <input id="dcfgsfc" type="checkbox" class="r3c" onchange="dcfgsfchecked()" disabled=true><div class="r3v" id="dcfgsf">0</div></input>
+          </label></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Ability Modifier</h4>
+        <p class="r2">Relevant Ability Modifier</p>
+        <input id="dcmod" size="3" value="0" class="r3t" onkeyup="calcdcTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Save DC</h4>
+        <p class="r2">Opponent Must Beat Your DC</p>
+        <div id="dctotal" class="value"></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Spell Target</h4>
+        <p class="r2">Saving Throw Rolled</p>
+        <input id="dcenemy" size="3" value="25" class="r3t" onkeyup="calcdcTotal()"></input>
+      </div>
+      <div id="dcpicenemy" class="box">
+        <img src="dragon-animated-gif-62.gif" alt="enemy" width=155px >
+      </div>
+    </div>
+  </div>
+  <div id="tabDM" class="wrapper tabcontent"></div>
+
 </BODY>
 
 </HTML>
