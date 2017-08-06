@@ -1,173 +1,168 @@
 <HTML>
+
 <HEAD>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    .row {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    .row>[class*='col-'] {
+      display: flex;
+      flex-direction: column;
+    }
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
-<style>
-  .row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-  flex-wrap: wrap;
-}
-.row > [class*='col-'] {
-  display: flex;
-  flex-direction: column;
-}
-div.win { background-color: green;}
-div.lose { background-color:red;}
+    div.win {
+      background-color: green;
+    }
 
+    div.lose {
+      background-color: red;
+    }
   </style>
-<script>
-function getElement(id) {
- return document.getElementById(id);
-}
-function getValueAsInt(id) {
-  var val = parseInt(getElement(id).innerHTML);
-  if (val == NaN)
-    return 0;
-  else
-    return val;
-}
-function getValueFromValue(id) {
-  if (getElement(id).value == NaN)
-    return 0;
-  var val = parseInt(getElement(id).value);
-  if (isNaN(val))
-    return 0;
-  else
-    return val;
-}
-function setValueHTML(id, value) {
-  getElement(id).innerHTML = value;
-}
-function init() {
-  getElement("cl").value=6;
-  getValueFromValue("cl");
-  globalTotal=6;
-  calcTotal();
-}
-function calcTotal() {
-  globalTotal = getValueFromValue("cl") +
-  getValueAsInt("sp") +
-  getValueAsInt("gsp") +
-  getValueAsInt("asyv") +
-  getValueFromValue("bonus") +
-  getValueFromValue("chance");
-  setValueHTML("total",globalTotal);
-  getElement("total").classList.remove('win');
-  getElement("total").classList.remove('lose');
-  if (globalTotal >= getValueFromValue("enemy"))
-  {
-    getElement("total").classList.add('win');
-  }
-  else
-  {
-    getElement("total").classList.add('lose');
-  }
-}
-function spchecked() {
-  if (getElement("spc").checked==true)
-  {
-    setValueHTML("sp",2);
-    getElement("gspc").disabled=false;
-  }
-  else
-  {
-    setValueHTML("sp",0);
-    getElement("gspc").disabled=true;
-    getElement("gspc").checked=false;
-    setValueHTML("gsp",0);
-  }
-  calcTotal();
-}
-function gspchecked() {
-  if (getElement("gspc").checked==true)
-    setValueHTML("gsp",2);
-  else
-    setValueHTML("gsp",0);
-    calcTotal();
-}
-function asychecked() {
-  if (getElement("asy").checked==true)
-    setValueHTML("asyv",10);
-  else
-    setValueHTML("asyv",0);
-    calcTotal();
-}
-window.onload = init;
+  <script>
+    function getElement(id) {
+      return document.getElementById(id);
+    }
+    function getValueAsInt(id) {
+      var val = parseInt(getElement(id).innerHTML);
+      if (val == NaN)
+        return 0;
+      else
+        return val;
+    }
+    function getValueFromValue(id) {
+      if (getElement(id).value == NaN)
+        return 0;
+      var val = parseInt(getElement(id).value);
+      if (isNaN(val))
+        return 0;
+      else
+        return val;
+    }
+    function setValueHTML(id, value) {
+      getElement(id).innerHTML = value;
+    }
+    function init() {
+      getElement("cl").value = 6;
+      getValueFromValue("cl");
+      globalTotal = 6;
+      calcTotal();
+    }
+    function calcTotal() {
+      globalTotal = getValueFromValue("cl") +
+        getValueAsInt("sp") +
+        getValueAsInt("gsp") +
+        getValueAsInt("asyv") +
+        getValueFromValue("bonus") +
+        getValueFromValue("chance");
+      setValueHTML("total", globalTotal);
+      getElement("total").classList.remove('win');
+      getElement("total").classList.remove('lose');
+      if (globalTotal >= getValueFromValue("enemy")) {
+        getElement("total").classList.add('win');
+      }
+      else {
+        getElement("total").classList.add('lose');
+      }
+    }
+    function spchecked() {
+      if (getElement("spc").checked == true) {
+        setValueHTML("sp", 2);
+        getElement("gspc").disabled = false;
+      }
+      else {
+        setValueHTML("sp", 0);
+        getElement("gspc").disabled = true;
+        getElement("gspc").checked = false;
+        setValueHTML("gsp", 0);
+      }
+      calcTotal();
+    }
+    function gspchecked() {
+      if (getElement("gspc").checked == true)
+        setValueHTML("gsp", 2);
+      else
+        setValueHTML("gsp", 0);
+      calcTotal();
+    }
+    function asychecked() {
+      if (getElement("asy").checked == true)
+        setValueHTML("asyv", 10);
+      else
+        setValueHTML("asyv", 0);
+      calcTotal();
+    }
+    window.onload = init;
   </script>
 </HEAD>
+
 <BODY>
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#">Spell Resistance</a></li>
-    <li><a href="#">Saving Throw</a></li>
-    <li><a href="#">Dispel Magic</a></li>
-</ul>
-    <form class="form-horizontal">
-      <div class="wrapper">
-      <div class="flex-container">
-        <div class="box">
-          <img src="casting-lightening.gif" alt="Lightning" width=140px>
-        </div>
-        <div class="box">
-          <h4>Spell Caster</h4>
-          <p>Effective Caster Level:</p>
-          <input id="cl" size="3" class="value" onkeyup="calcTotal()"></input>
-        </div>
-        <div class="box">
-          <h4>Caster Feat</h4>
-          <p>Spell Penetration Feat</p>
-          <div class="checkbox"><label>
-          <input id="spc" type="checkbox" class="value" onchange="spchecked()"><div id="sp">0</div></input>
-          </label></div>
-        </div>
-        <div class="box">
-          <h4>Caster Feat</h4>
-          <p>Greater Spell Penetration</p>
-          <div class="checkbox"><label>
-          <input id="gspc" type="checkbox" onchange="gspchecked()" disabled=true><div id="gsp">0</div></input>
-          </label></div>
-        </div>
-        <div class="box">
-          <h4>Spell Caster</h4>
-          <p>Assay Spell Resistance?</p>
-          <div class="checkbox"><label>
-          <input id="asy" type="checkbox" class="value" onchange="asychecked()"><div id="asyv">0</div></input>
-          </label></div>     
-        </div>
-        <div class="box flex-container">
-          <h4>Misc. Mod</h4>
-          <p>Enter Other Bonuses</p>
-          <input id="bonus" size="3" value="0" class="value" onkeyup="calcTotal()"></input>
-        </div>
-        <div class="box">
-          <h4>Random Value</h4>
-          <p>Roll d20 and enter value:</p>
-          <input id="chance" size="3" value="12" class="value" onkeyup="calcTotal()"></input>
-        </div>
-        <div class="box">
-            <img src="dragon-animated-gif-62.gif" alt="monk" width=140px >
-        </div>
-        <div class="box">
-          <h4>The Enemy</h4>
-          <p>A Red Dragon</p>
-          SR<input id="enemy" size="3" value="25" class="value" onkeyup="calcTotal()"></input>
-        </div>
-        <div class="box">
-          <h4>Your Total</h4>
-          <p>Must Beat or Equal</p>
-          <div id="total" class="value"></div>
-        </div>
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(action, 'SR')">Spell Resistance</button>
+    <button class="tablinks" onclick="openTab(action, 'SV')">Saving Throw</button>
+    <button class="tablinks" onclick="openTab(action, 'DM')">Dispel Magic</button>
+  </div>
+  <div class="wrapper">
+    <div class="flex-container">
+      <div class="box">
+        <img src="casting-lightening.gif" alt="Lightning" width=140px>
       </div>
+      <div class="box">
+        <h4 class="r1">Spell Caster</h4>
+        <p class="r2">Effective Caster Level:</p>
+        <input id="cl" size="4" class="r3t" onkeyup="calcTotal()"></input>
       </div>
-</form>
+      <div class="box">
+        <h4 class="r1">Feat</h4>
+        <p class="r2">Spell Penetration Feat</p>
+        <div class="r3"><label>
+          <input id="spc" type="checkbox" class="r3c" onchange="spchecked()"><div id="sp">0</div></input>
+          </label></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Feat</h4>
+        <p class="r2">Greater Spell Penetration</p>
+        <div class="r3"><label>
+          <input id="gspc" type="checkbox" class="r3c" onchange="gspchecked()" disabled=true><div id="gsp">0</div></input>
+          </label></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Spells Cast?</h4>
+        <p class="r2">Assay Spell Resistance</p>
+        <div class="r3"><label>
+          <input id="asy" type="checkbox" class="r3c" class="value" onchange="asychecked()"><div id="asyv">0</div></input>
+          </label></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Miscellany Modifier</h4>
+        <p class="r2">Enter Other Bonuses</p>
+        <input id="bonus" size="3" value="0" class="r3t" onkeyup="calcTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Random Value</h4>
+        <p class="r2">Roll d20 and enter value:</p>
+        <input id="chance" size="3" value="12" class="r3t" onkeyup="calcTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Your Total Must </h4>
+        <p class="r2">Beat or Equal Enemy SR</p>
+        <div id="total" class="value"></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">The Enemy</h4>
+        <p class="r2">A Red Dragon With SR:</p>
+        <input id="enemy" size="3" value="25" class="r3t" onkeyup="calcTotal()"></input>
+      </div>
+      <div class="box">
+        <img src="dragon-animated-gif-62.gif" alt="enemy" width=155px >
+      </div>
+    </div>
+    </form>
 </BODY>
+
 </HTML>

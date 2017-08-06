@@ -1,7 +1,9 @@
+body { background-color: grey;}
 .wrapper{
     width: 100%;
     max-width: 960px;
     margin:0 auto;
+    background: black;
 }
 .flex-container{
     display: flex;
@@ -9,22 +11,22 @@
 }
 .box{
     max-height: 200px;
-    background: greenyellow;
     border-style: solid;
     border-width: 1px;
+    border-color: yellow;
     flex-basis: 80px;
     flex-flow: row wrap;
     flex-direction: column;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
     
 }
 .value { 
-    height:20px;
+    height:20px;font-weight: bold;
 }
-
-.checkbox { 
-    margin-top: auto;
-}
-p  {color: blue; 
- text-align: center; 
- flex-flow: column;}
-h4 {text-align: center; height:40px;}
+.checkbox {  height:20px; width:20px;}
+.r1 {text-align: center; height:40px; color: yellow;}
+.r2 {text-align: center; flex-flow: column; color: blueviolet;}
+.r3t {text-align: center; height:20px; width:40px; padding-bottom: 6px; font-weight: bold;}
+.r3 {height:24px; width:40px; display: inline-block; padding-bottom: 6px;}
+.r3c {text-align: center; height:20px; width:20px; float:left; }
