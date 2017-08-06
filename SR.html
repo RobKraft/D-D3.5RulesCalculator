@@ -55,7 +55,10 @@
       getElement("dcbase").value = 10;
       getElement("dclvl").value = 6;
       calcdcTotal();
-      getElement("btnSV").click();
+      getElement("dmlvl").value = 13;
+      getElement("dmlvl2").value = 9;
+      getElement("btnDM").click();
+      calcdmTotal();
     }
     function calcTotal() {
       globalTotal = getValueFromValue("cl") +
@@ -147,6 +150,43 @@
       }
     }
     
+    function calcdmTotal() {
+      dmlevel = getValueFromValue("dmlvl");
+      dmCLBonus = dmlevel;
+      if (dmlevel > 10)
+      {
+        if (getElement("dm1").checked)
+        {
+          dmCLBonus = 10;
+        }
+        else if(dmlevel > 20)
+        {
+          dmCLBonus = 20;
+        }
+      }
+      dmTotal = dmCLBonus +
+        getValueFromValue("dmroll");
+      dmTotal2 = 11+ getValueFromValue("dmlvl2");
+      setValueHTML("dmbonus", dmCLBonus);
+      setValueHTML("dmtotal", dmTotal);
+      setValueHTML("dmtotal2", dmTotal2);
+      getElement("dmtotal").classList.remove('win');
+      getElement("dmtotal").classList.remove('lose');
+      getElement("dmpicenemy").classList.remove('lose');
+      getElement("dmpicenemy").classList.remove('win');
+      getElement("dmpiccaster").classList.remove('lose');
+      getElement("dmpiccaster").classList.remove('win');
+      if (dmTotal > getValueAsInt("dmtotal2")) {
+        getElement("dmtotal").classList.add('win');
+        getElement("dmpicenemy").classList.add('lose');
+        getElement("dmpiccaster").classList.add('win');
+      }
+      else {
+        getElement("dmtotal").classList.add('lose');
+        getElement("dmpicenemy").classList.add('win');
+        getElement("dmpiccaster").classList.add('lose');
+      }
+    }
     window.onload = init;
   </script>
   <script>
@@ -176,7 +216,7 @@
   <div class="tab">
     <button id="btnSR" class="tablinks" onclick="openTab(event, 'tabSR')">Spell Resistance</button>
     <button id="btnSV" class="tablinks" onclick="openTab(event, 'tabSV')">Saving Throw</button>
-    <button class="tablinks" onclick="openTab(event, 'tabDM')">Dispel Magic</button>
+    <button id="btnDM" class="tablinks" onclick="openTab(event, 'tabDM')">Dispel Magic</button>
   </div>
   <div id="tabSR" class="wrapper tabcontent">
     <div class="flex-container">
@@ -283,7 +323,60 @@
       </div>
     </div>
   </div>
-  <div id="tabDM" class="wrapper tabcontent"></div>
+  <div id="tabDM" class="wrapper tabcontent">
+      <div class="flex-container">
+      <div id="dmpiccaster" class="box">
+        <img src="casting-lightening.gif" alt="caster" width=140px>
+      </div>
+      <div class="box">
+        <h4 class="r1">Spell Caster</h4>
+        <p class="r2">Effective Caster Level:</p>
+        <input id="dmlvl" size="4" class="r3t" onkeyup="calcdmTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Spell Cast</h4>
+        <p class="r2">Which Spell Did You Cast ?</p>
+        <div class="dmr3">
+          <input id="dm1" name="dispel" type="radio" class="dmr3c" value="10" onclick="calcdmTotal()" checked><label class="dmr3v">Dispel Magic</label></input>
+          <input id="dm2" name="dispel" type="radio" class="dmr3c" value="20" onclick="calcdmTotal()"><label class="dmr3v">Dispel Magic, Greater</label></input>
+          </div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Caster Level Bonus</h4>
+        <p class="r2">Modifier for Caster Level</p>
+        <div id="dmbonus" class="value win"></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">D20</h4>
+        <p class="r2">Dice Value Rolled by Caster</p>
+        <input id="dmroll" size="3" value="8" class="r3t" onkeyup="calcdmTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Caster Total</h4>
+        <p class="r2">Total Value Applied for Caster</p>
+        <div id="dmtotal" class="value"></div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Base Difficulty Class</h4>
+        <p class="r2">The Base Difficulty Class is 11</p>
+        <div class="r3v" id="dmbase">11</div>
+      </div>
+      <div class="box">
+        <h4 class="r1">Enemy</h4>
+        <p class="r2">Level of Spell to Dispel</Dispel></p>
+        <input id="dmlvl2" size="4" class="r3t" onkeyup="calcdmTotal()"></input>
+      </div>
+      <div class="box">
+        <h4 class="r1">Enemy Total</h4>
+        <p class="r2">Enemy Must Beat Your DC</p>
+        <div id="dmtotal2" class="value r3v"></div>
+      </div>
+      <div id="dmpicenemy" class="box">
+        <img src="dragon-animated-gif-62.gif" alt="enemy" width=140px >
+      </div>
+    </div>
+  
+  </div>
 
 </BODY>
 

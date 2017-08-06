@@ -31,6 +31,9 @@ body { background-color: grey;}
 .r3 {height:24px; width:40px; display: inline-block; padding-bottom: 6px; color: white;}
 .r3c {text-align: center; height:20px; width:14px; float:left; }
 .r3v { font-weight: bold;color: white;}
+.dmr3 {height:60px; width:96px; padding-bottom: 6px; color: white;}
+.dmr3c {  margin:0px; margin-top: 5px}
+.dmr3v { font-size: xx-small;  width:78px; color: white; float: right; margin-top: 5px}
 
 /* Style the tab */
 div.tab {
